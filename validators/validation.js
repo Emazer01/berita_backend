@@ -23,13 +23,35 @@ const login = [
     body("password").isLength({ min: 8 }).notEmpty(), 
     validator
 ];
-/*
+
 const updateprofile = [
+    body("namaLengkap").isString().notEmpty(), 
+    body("noTelepon").isNumeric().notEmpty(), 
+    body("bio").isString().notEmpty(),
+    body("fotoUrl").isString().notEmpty(),
+    validator
+];
+
+const updateakun = [
     body("user").isLength({ min: 6 }).notEmpty(), 
     body("email").isEmail().notEmpty(), 
     validator
 ];
 
+const submitberita = [
+    body("judul").isString().notEmpty(),
+    body("nama").isString().notEmpty(),
+    body("deskripsi").isString().notEmpty(),
+    body("harga").isNumeric().notEmpty(),
+    validator
+];
+
+const submitpenawaran = [
+    body("user").isString().notEmpty(),
+    body("harga").isNumeric().notEmpty(),
+    validator
+];
+/*
 const changePw = [
     body("newpw").isLength({ min: 8 }).matches(passRegex).notEmpty(), 
     validator
@@ -68,8 +90,11 @@ const addorder = [
 module.exports = {
   register,
   login,
-  /*updateprofile,
-  changePw,
+  updateprofile,
+  updateakun,
+  submitberita,
+  submitpenawaran
+  /*changePw,
   updateaddress,
   addaddress,
   addorder,

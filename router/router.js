@@ -9,9 +9,25 @@ router.post('/register', Validation.register, userController.register)
 router.post('/login', Validation.login, userController.login)
 
 router.post('/verify', Auth.verifyToken, userController.verify)
-/*
+
 router.post('/updateprofile', Validation.updateprofile, Auth.verifyToken, userController.updateprofile)
 
+router.post('/updateakun', Validation.updateakun, Auth.verifyToken, userController.updateakun)
+
+router.post('/submitberita', Validation.submitberita, Auth.verifyToken, userController.submitberita)
+
+router.post('/beritas', Auth.verifyToken, userController.beritas)
+
+router.get('/main', userController.main)
+
+router.post('/view', userController.view)
+
+router.post('/penawarans', userController.penawarans)
+
+router.post('/verifwar', Auth.verifyToken, userController.verifwar)
+
+router.post('/submitpenawaran', Validation.submitpenawaran, Auth.verifyToken, userController.submitpenawaran)
+/*
 router.post('/changepw', Validation.changePw, Auth.verifyToken, userController.changePw)
 
 router.post('/addresses', Auth.verifyToken, userController.addresses)

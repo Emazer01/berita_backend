@@ -42,18 +42,21 @@ const verify = async (req, res, next) => {
     try {
         // 13. membuat verify
         const decode = req.user
-        const user = await Services.verify(decode.email, decode.password)
+        console.log(decode)
+        const user = await Services.verify(decode.id,)
+        console.log(user)
         res.status(200).json(user)
     } catch (err) {
         console.log(err.message);
         return res.status(500).send(err)
     }
 }
-/*
+
 const updateprofile = async (req, res, next) => {
     try {
+        console.log("sampe controller")
         const body = req.body
-        const result = await Services.updateprofile(body.user, body.email, body.id)
+        const result = await Services.updateprofile(body.id, body.namaLengkap, body.noTelepon, body.bio, body.fotoUrl)
         if (result == 'sudah update') {
             res.status(200).send('sudah update')
         } else {
@@ -65,6 +68,99 @@ const updateprofile = async (req, res, next) => {
     }
 }
 
+const updateakun = async (req, res, next) => {
+    try {
+        const body = req.body
+        const result = await Services.updateakun(body.user, body.email, body.id)
+        if (result == 'sudah update') {
+            res.status(200).send('sudah update')
+        } else {
+            throw new Error(result)
+        }
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
+const submitberita = async (req, res, next) => {
+    try {
+        console.log("masuk controller")
+        const body = req.body
+        const result = await Services.submitberita(body.profile_id,body.judul,body.nama,body.deskripsi,body.harga,body.date,body.lelang,body.kategori,body.waktu,body.note,body.fotoUrl,body.file)
+        console.log("selesai controller")
+        res.status(200).send(result)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
+const beritas = async (req, res, next) => {
+    try {
+        const body = req.body
+        const daftar_berita = await Services.beritas(body.profile_id)
+        res.status(200).json(daftar_berita)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
+const main = async (req, res, next) => {
+    try {
+        const daftar_berita = await Services.main()
+        res.status(200).json(daftar_berita)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
+const view = async (req, res, next) => {
+    try {
+        const body = req.body
+        const daftar_berita = await Services.view(body.berita_id)
+        res.status(200).json(daftar_berita)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
+const penawarans = async (req, res, next) => {
+    try {
+        const body = req.body
+        const daftar_penawaran = await Services.penawarans(body.berita_id)
+        res.status(200).json(daftar_penawaran)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
+const verifwar = async (req, res, next) => {
+    try {
+        const body = req.body
+        const level = await Services.verifwar(body.profile_id)
+        res.status(200).json(level)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
+const submitpenawaran = async (req, res, next) => {
+    try {
+        const body = req.body
+        const result = await Services.submitpenawaran(body.berita_id,body.profile_id,body.user,body.note,body.harga)
+        res.status(200).send(result)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+/*
 const changePw = async (req, res, next) => {
     try {
         // 13. membuat verify
@@ -227,8 +323,16 @@ module.exports = {
     register,
     login,
     verify,
-    /*updateprofile,
-    changePw,
+    updateprofile,
+    updateakun,
+    submitberita,
+    beritas,
+    main,
+    view,
+    penawarans,
+    verifwar,
+    submitpenawaran
+    /*changePw,
     addresses,
     updateaddress,
     addaddress,

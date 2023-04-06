@@ -12,6 +12,8 @@ const Auth = {
         try{
           var verified = jwt.verify(token, SECRET);
           req.user = verified
+          console.log(req.user)
+          console.log("auth selesai")
           return next()
         } catch(err){
           res.status(403).send('Youre not authenticated, please login first')
