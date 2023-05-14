@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { response } = require('express');
 
-const register = async (username,email,password) => {
+const register = async (username,email,password,wartawan) => {
     try {
         const hash = await bcrypt.hash(password, 10)
         console.log("sebelum query")
@@ -14,8 +14,8 @@ const register = async (username,email,password) => {
         const result2 = await db.query(query2,[email]);
         console.log(result2.rows[0]['user_id'])
         const placeholderPhoto = `data:image/jpeg;base64,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`
-        const query3 = `INSERT INTO profile(profile_id, user_id, nama_lengkap, no_hp, foto, level_id, bio) VALUES(DEFAULT, $1, $2, $3, $4, $5, $6)`
-        const result3 = await db.query(query3,[result2.rows[0]['user_id'], '', '', placeholderPhoto, 3, '']);
+        const query3 = `INSERT INTO profile(profile_id, user_id, nama_lengkap, no_hp, foto, level_akun_id, bio) VALUES(DEFAULT, $1, $2, $3, $4, $5, $6)`
+        const result3 = await db.query(query3,[result2.rows[0]['user_id'], '', '', placeholderPhoto, wartawan, '']);
         console.log(result3)
         console.log("selesai query")
         if (!result) {
@@ -66,7 +66,7 @@ const login = async (email,password) => {
 const verify = async (id) => {
     try {
         console.log(id)
-        const query = `SELECT a.profile_id, a.nama_lengkap, a.no_hp, a.foto, a.bio, b.level_label FROM profile AS a INNER JOIN level_akun AS b ON a.level_id=b.level_id WHERE a.user_id=$1`
+        const query = `SELECT a.profile_id, a.nama_lengkap, a.no_hp, a.foto, a.bio, b.level_akun_label FROM profile AS a INNER JOIN level_akun AS b ON a.level_akun_id=b.level_akun_id WHERE a.user_id=$1`
         const user = (await db.query(query,[id])).rows
         if (user == '') {
             return('Invalid User')
@@ -101,10 +101,10 @@ const updateakun = async (username,email,id) => {
     }
 }
 
-const submitberita = async (profile_id,judul,nama,deskripsi,harga,date,lelang,kategori,waktu,note,fotoUrl,file) => {
+const submitberita = async (profile_id,judul,nama,deskripsi,harga,date,lelang,kategori,note,fotoUrl,file) => {
     try {
-        const query = `INSERT INTO berita VALUES(DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`
-        await db.query(query, [profile_id,judul,nama,deskripsi,harga,date,lelang,kategori,waktu,note,fotoUrl,file])
+        const query = `INSERT INTO berita VALUES(DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`
+        await db.query(query, [profile_id,judul,deskripsi,fotoUrl,nama,file,note,harga,date,kategori,lelang])
         return('berhasil request')
     } catch (error) {
         return error
@@ -133,7 +133,7 @@ const main = async () => {
 
 const view = async (berita_id) => {
     try {
-        const query = `SELECT * FROM berita INNER JOIN kategori ON berita.kategori_id=kategori.kategori_id INNER JOIN level_berita ON berita.level_id=level_berita.level_id WHERE berita_id=$1`
+        const query = `SELECT * FROM berita INNER JOIN kategori ON berita.kategori_id=kategori.kategori_id INNER JOIN level_berita ON berita.level_berita_id=level_berita.level_berita_id WHERE berita_id=$1`
         const daftar_berita = (await db.query(query, [berita_id])).rows
         return(daftar_berita)
     } catch {
@@ -153,7 +153,7 @@ const penawarans = async (berita_id) => {
 
 const verifwar = async (profile_id) => {
     try {
-        const query = `SELECT level_id FROM profile WHERE profile_id=$1`
+        const query = `SELECT level_akun_id FROM profile WHERE profile_id=$1`
         const level = (await db.query(query, [profile_id])).rows
         return(level)
     } catch {

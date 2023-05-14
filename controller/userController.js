@@ -12,11 +12,11 @@ SECRET = process.env.SECRET
 
 const register = async (req, res, next) => {
     // * 7. silahkan ubah password yang telah diterima menjadi dalam bentuk hashing
-    const { username, email, password } = req.body
+    const { username, email, password,wartawan } = req.body
 
     // 8. Silahkan coding agar pengguna bisa menyimpan semua data yang diinputkan ke dalam database
     try {
-        const result = await Services.register(username, email, password)
+        const result = await Services.register(username, email, password,wartawan)
         if (result instanceof Error) {
             throw new Error(result);
         }
@@ -87,7 +87,7 @@ const submitberita = async (req, res, next) => {
     try {
         console.log("masuk controller")
         const body = req.body
-        const result = await Services.submitberita(body.profile_id,body.judul,body.nama,body.deskripsi,body.harga,body.date,body.lelang,body.kategori,body.waktu,body.note,body.fotoUrl,body.file)
+        const result = await Services.submitberita(body.profile_id,body.judul,body.nama,body.deskripsi,body.harga,body.date,body.lelang,body.kategori,body.note,body.fotoUrl,body.file)
         console.log("selesai controller")
         res.status(200).send(result)
     } catch (err) {
