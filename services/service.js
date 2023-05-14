@@ -170,6 +170,23 @@ const submitpenawaran = async (berita_id,profile_id,user,note,harga) => {
         return error
     }
 }
+
+const submitbayar = async (berita_id,harga,penawaran_id) => {
+    try {
+        const query = `INSERT INTO transaksi VALUES(DEFAULT,$1,$2,1)`
+        await db.query(query, [berita_id,harga])
+        for (const key in penawaran_id) {
+            console.log(penawaran_id[key])
+            const query2 = `INSERT INTO proses VALUES(DEFAULT,$1,1,$2)`
+            await db.query(query2, [penawaran_id[key],''])
+        }
+        //const query2 = `INSERT INTO proses VALUES(DEFAULT,$1,1,$2)`
+        //await db.query(query2, [penawaran_id,''])
+        return('berhasil bayar')
+    } catch (error) {
+        return error
+    }
+}
 /*
 const changePw = async (oldpw,newpw,password,id) => {
     try {
@@ -330,7 +347,8 @@ module.exports =  {
     view,
     verifwar,
     penawarans,
-    submitpenawaran
+    submitpenawaran,
+    submitbayar
     /*changePw,
     addresses,
     updateaddress,

@@ -27,6 +27,8 @@ router.post('/penawarans', userController.penawarans)
 router.post('/verifwar', Auth.verifyToken, userController.verifwar)
 
 router.post('/submitpenawaran', Validation.submitpenawaran, Auth.verifyToken, userController.submitpenawaran)
+
+router.post('/submitbayar', Auth.verifyToken, userController.submitbayar)
 /*
 router.post('/changepw', Validation.changePw, Auth.verifyToken, userController.changePw)
 

@@ -160,6 +160,17 @@ const submitpenawaran = async (req, res, next) => {
         return res.status(500).send(err)
     }
 }
+
+const submitbayar = async (req, res, next) => {
+    try {
+        const body = req.body
+        const result = await Services.submitbayar(body.berita_id,body.harga_total,body.list_pen)
+        res.status(200).send(result)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
 /*
 const changePw = async (req, res, next) => {
     try {
@@ -331,7 +342,8 @@ module.exports = {
     view,
     penawarans,
     verifwar,
-    submitpenawaran
+    submitpenawaran,
+    submitbayar
     /*changePw,
     addresses,
     updateaddress,
