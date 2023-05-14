@@ -123,7 +123,7 @@ const beritas = async (profile_id) => {
 
 const main = async () => {
     try {
-        const query = `SELECT * FROM berita ORDER BY berita_id DESC LIMIT 4`
+        const query = `SELECT * FROM berita ORDER BY berita_id DESC`
         const daftar_berita = (await db.query(query)).rows
         return(daftar_berita)
     } catch {
