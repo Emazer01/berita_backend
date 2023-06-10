@@ -24,11 +24,15 @@ router.post('/view', userController.view)
 
 router.post('/penawarans', userController.penawarans)
 
+router.post('/mypenawaran', userController.mypenawaran)
+
 router.post('/verifwar', Auth.verifyToken, userController.verifwar)
 
 router.post('/submitpenawaran', Validation.submitpenawaran, Auth.verifyToken, userController.submitpenawaran)
 
 router.post('/submitbayar', Auth.verifyToken, userController.submitbayar)
+
+router.post('/viewtransaksi', Auth.verifyToken, userController.view_transaksi)
 /*
 router.post('/changepw', Validation.changePw, Auth.verifyToken, userController.changePw)
 

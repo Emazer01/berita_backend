@@ -139,6 +139,17 @@ const penawarans = async (req, res, next) => {
     }
 }
 
+const mypenawaran = async (req, res, next) => {
+    try {
+        const body = req.body
+        const daftar_penawaran = await Services.mypenawaran(body.profile_id)
+        res.status(200).json(daftar_penawaran)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
 const verifwar = async (req, res, next) => {
     try {
         const body = req.body
@@ -166,6 +177,17 @@ const submitbayar = async (req, res, next) => {
         const body = req.body
         const result = await Services.submitbayar(body.berita_id,body.harga_total,body.list_pen)
         res.status(200).send(result)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
+const view_transaksi = async (req, res, next) => {
+    try {
+        const body = req.body
+        const daftar_transaksi = await Services.view_transaksi(body.profile_id)
+        res.status(200).json(daftar_transaksi)
     } catch (err) {
         console.log(err.message);
         return res.status(500).send(err)
@@ -343,7 +365,9 @@ module.exports = {
     penawarans,
     verifwar,
     submitpenawaran,
-    submitbayar
+    submitbayar,
+    view_transaksi,
+    mypenawaran
     /*changePw,
     addresses,
     updateaddress,
