@@ -162,6 +162,17 @@ const mypenawaran = async (profile_id) => {
     }
 }
 
+const myproses = async (profile_id) => {
+    try {
+        const query = `SELECT a.proses_id, a.penawaran_id, d.judul, a.link, a.transaksi_id, b.status_proses_label, c.profile_id FROM proses AS a INNER JOIN status_proses AS b ON a.status_proses_id=b.status_proses_id INNER JOIN penawaran AS c ON a.penawaran_id=c.penawaran_id INNER JOIN berita as d ON c.berita_id=d.berita_id WHERE c.profile_id=$1`
+        const daftar_proses = (await db.query(query, [profile_id])).rows
+        console.log(daftar_proses)
+        return (daftar_proses)
+    } catch {
+        return Error
+    }
+}
+
 const verifwar = async (profile_id) => {
     try {
         const query = `SELECT level_akun_id FROM profile WHERE profile_id=$1`
@@ -381,7 +392,8 @@ module.exports = {
     submitpenawaran,
     submitbayar,
     view_transaksi,
-    mypenawaran
+    mypenawaran,
+    myproses
     /*changePw,
     addresses,
     updateaddress,

@@ -150,6 +150,17 @@ const mypenawaran = async (req, res, next) => {
     }
 }
 
+const myproses = async (req, res, next) => {
+    try {
+        const body = req.body
+        const daftar_proses = await Services.myproses(body.profile_id)
+        res.status(200).json(daftar_proses)
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send(err)
+    }
+}
+
 const verifwar = async (req, res, next) => {
     try {
         const body = req.body
@@ -367,7 +378,8 @@ module.exports = {
     submitpenawaran,
     submitbayar,
     view_transaksi,
-    mypenawaran
+    mypenawaran,
+    myproses
     /*changePw,
     addresses,
     updateaddress,

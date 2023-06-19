@@ -26,6 +26,8 @@ router.post('/penawarans', userController.penawarans)
 
 router.post('/mypenawaran', userController.mypenawaran)
 
+router.post('/myproses', userController.myproses)
+
 router.post('/verifwar', Auth.verifyToken, userController.verifwar)
 
 router.post('/submitpenawaran', Validation.submitpenawaran, Auth.verifyToken, userController.submitpenawaran)
